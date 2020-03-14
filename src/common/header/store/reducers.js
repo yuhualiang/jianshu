@@ -1,18 +1,14 @@
-import {
-  SWITCH_FOCUSE
-} from './actionTypes';
+import { fromJS } from 'immutable';
+import * as actionTypes from './actionTypes';
 
-const defaultState = {
+const defaultState = fromJS({
   focused: false
-};
+});
 
 export default (state = defaultState, action) => {
   const type = action.type;
-  if (type === SWITCH_FOCUSE) {
-    const newState = JSON.parse(JSON.stringify(state));
-    newState.focused = !newState.focused;
-
-    return newState;
+  if (type === actionTypes.SWITCH_FOCUSE) {
+    return state.set('focused', !state.focused)
   }
   return state;
 }
