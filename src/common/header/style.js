@@ -126,5 +126,27 @@ export const Button = styled.div`
       margin-right: 6px;
     }
   }
+`;
 
+export const SearchInfo = styled.div`
+  position : absolute;
+  width : 250px;
+  left : 20px;
+  box-sizing : border-box;
+  top : 58px;
+  background : #fff;
+  border-radius : 3px;
+  padding: 20px;
+  box-shadow : 0 0 8px rgba(0, 0, 0, .2);
+  :before{
+    content : "";
+    position : absolute;
+    left : 20px;
+    bottom : 99%;
+    width : 0;
+    height : 0;
+    border : 14px solid transparent;
+    border-bottom-color: #fff;
+    box-sizing : border-box;
+  }
 `;
