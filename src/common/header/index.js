@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
-import {switchFocusedAction} from '../../store/actions';
+import {actions} from './store';
 import {
   HeaderWrapper,
   Logo,
@@ -47,15 +47,14 @@ const Header = (props) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     switchFocused() {
-      const action = switchFocusedAction();
-      dispatch(action);
+      dispatch(actions.switchFocusedAction());
     }
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    focused: state.focused
+    focused: state.header.focused
   }
 }
 

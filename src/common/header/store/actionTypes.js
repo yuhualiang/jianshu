@@ -1,0 +1,1 @@
+export const SWITCH_FOCUSE = 'header/SWITCH_FOCUSE';

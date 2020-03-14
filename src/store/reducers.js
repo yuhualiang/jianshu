@@ -1,17 +1,8 @@
-import {
-  SWITCH_FOCUSE
-} from './actionTypes';
-const defaultState = {
-  focused: false
-};
+import {combineReducers} from 'redux';
+import { reducers as headerReducers } from '../common/header/store';
 
-export default (state = defaultState, action) => {
-  const type = action.type;
-  if (type === SWITCH_FOCUSE) {
-    const newState = JSON.parse(JSON.stringify(state));
-    newState.focused = !newState.focused;
+const reducers = combineReducers({
+  header: headerReducers
+});
 
-    return newState;
-  }
-  return state;
-}
+export default reducers;
