@@ -150,3 +150,29 @@ export const SearchInfo = styled.div`
     box-sizing : border-box;
   }
 `;
+
+export const SearchList = styled.div`
+  list-style: none;
+  color: rgb(120, 120, 120);
+  overflow: hidden;
+`;
+export const SearchListItem = styled.li`
+  margin-right : 10px;
+  float : left;
+  display: inline-block;
+  .item-content{	  
+    font-size : 12px;
+    display : block;
+    margin : 7px 0px;
+    padding: 2px 6px;
+    color : #787878;
+    box-sizing : border-box;
+    border : 1px solid #ddd;
+    border-radius : 3px;
+    cursor : pointer;
+    text-decoration : none;
+    :hover{
+      border-color : #666;
+    }
+  }
+`

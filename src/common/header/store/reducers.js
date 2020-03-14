@@ -3,7 +3,8 @@ import * as actionTypes from './actionTypes';
 
 const defaultState = fromJS({
   focused: false,
-  mouseEnterSearchInfoStatus: false
+  mouseEnterSearchInfoStatus: false,
+  searchInfoData: []
 });
 
 export default (state = defaultState, action) => {
@@ -13,6 +14,8 @@ export default (state = defaultState, action) => {
       return state.set('focused', !state.get('focused'));
     case actionTypes.CHANGE_MOUSE_ENTER_SEARCH_INFO_STATUS:
       return state.set('mouseEnterSearchInfoStatus', action.value);
+    case actionTypes.GET_SEARCH_INFO_DATA:
+      return state.set('searchInfoData', action.value);
     default:
       return state;
   }

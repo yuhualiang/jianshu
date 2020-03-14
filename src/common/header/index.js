@@ -11,7 +11,9 @@ import {
   NavSearch,
   Addition,
   Button,
-  SearchInfo
+  SearchInfo,
+  SearchList,
+  SearchListItem
 } from './style';
 
 class Header extends React.Component {
@@ -21,11 +23,17 @@ class Header extends React.Component {
     const mouseEnter = props.mouseEnter;
     if (focused || mouseEnter) {
       return (
-        <SearchInfo 
-          onMouseEnter={() => {props.handleSearchInfoMouseAc(true)}}
-          onMouseLeave={() => {props.handleSearchInfoMouseAc(false)}}
+        <SearchInfo
+          onMouseEnter={() => { props.handleSearchInfoMouseAc(true) }}
+          onMouseLeave={() => { props.handleSearchInfoMouseAc(false) }}
         >
-          SearchInfo
+          <SearchList>
+            {
+              props.searchInfoData.map((item, index) => {
+                return <SearchListItem key={index}><a href='./' className='item-content'>{item}</a></SearchListItem>
+              })
+            }
+          </SearchList>
         </SearchInfo>
       )
     }
@@ -47,8 +55,8 @@ class Header extends React.Component {
           <SearchWrapper>
             <CSSTransition in={props.focused} timeout={200} classNames="slide">
               <NavSearch className={props.focused ? 'focused' : ''}
-                onFocus={() => {props.switchFocused(true)}}
-                onBlur={() => {props.switchFocused(false)}}>
+                onFocus={() => { props.switchFocused(true, props.searchInfoData) }}
+                onBlur={() => { props.switchFocused(false) }}>
               </NavSearch>
             </CSSTransition>
             <i className={props.focused ? 'iconfont focused' : 'iconfont'}>&#xe687;</i>
@@ -68,12 +76,14 @@ class Header extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    switchFocused(flag) {
+    switchFocused(flag, searchInfoData) {
       if (flag) {
-        dispatch(actions.getSearchInfoDataAction())
-        console.log(actions.getSearchInfoDataAction())
+        if (searchInfoData.length <= 0) {
+          dispatch(actions.getSearchInfoDataAction())
+        }
       }
-      dispatch(actions.switchFocusedAction());
+      console.log(searchInfoData)
+      dispatch(actions.switchFocusedAction())
     },
     handleSearchInfoMouseAc(flag) {
       dispatch(actions.changeMouseEnterSearchInfoStatusAction(flag))
@@ -84,7 +94,8 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     focused: state.getIn(['header', 'focused']),
-    mouseEnter: state.getIn(['header', 'mouseEnterSearchInfoStatus'])
+    mouseEnter: state.getIn(['header', 'mouseEnterSearchInfoStatus']),
+    searchInfoData: state.getIn(['header', 'searchInfoData']).toJS()
   }
 }
 
