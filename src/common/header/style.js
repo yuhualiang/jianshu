@@ -48,7 +48,7 @@ export const NavItem = styled.div`
 export const SearchWrapper = styled.div`
   position: relative;
   float: left;
-  .iconfont {
+  .loupe {
     position: absolute;
     right: 5px;
     bottom: 5px;
@@ -175,4 +175,25 @@ export const SearchListItem = styled.li`
       border-color : #666;
     }
   }
+`;
+
+export const SearchTitle = styled.div`
+  color : rgb(150, 150, 150);
+  font-size: 14px;
+  margin-bottom : 10px;
+`;
+
+export const SearchSwitch = styled.span`
+	float: right;
+	font-size: 13px;
+	cursor : pointer;
+	.spin{
+    display : block;
+    margin-right : 3px;
+    float : left;
+    font-weight : 500;
+    font-size : 14px;
+      transition : all .2s ease-in;
+      transform-origin: center center;
+	}
 `

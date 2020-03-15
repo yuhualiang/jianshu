@@ -13,8 +13,12 @@ import {
   Button,
   SearchInfo,
   SearchList,
-  SearchListItem
+  SearchListItem,
+  SearchTitle,
+  SearchSwitch
 } from './style';
+
+const SHOW_NUM = 10;
 
 class Header extends React.Component {
   searchArea() {
@@ -27,9 +31,19 @@ class Header extends React.Component {
           onMouseEnter={() => { props.handleSearchInfoMouseAc(true) }}
           onMouseLeave={() => { props.handleSearchInfoMouseAc(false) }}
         >
+          <SearchTitle>
+            热门搜索:
+            <SearchSwitch onClick={() => { props.handleChangePage(props.currentPage, props.totalPage, this.spinIcon) }}>
+              <i ref={(icon) => { this.spinIcon = icon }} className="iconfont spin">&#xe68f;</i>
+              换一批
+            </SearchSwitch>
+          </SearchTitle>
           <SearchList>
             {
-              props.searchInfoData.map((item, index) => {
+              props.searchInfoData.slice(
+                (props.currentPage - 1) * SHOW_NUM,
+                props.currentPage * SHOW_NUM
+              ).map((item, index) => {
                 return <SearchListItem key={index}><a href='./' className='item-content'>{item}</a></SearchListItem>
               })
             }
@@ -59,7 +73,7 @@ class Header extends React.Component {
                 onBlur={() => { props.switchFocused(false) }}>
               </NavSearch>
             </CSSTransition>
-            <i className={props.focused ? 'iconfont focused' : 'iconfont'}>&#xe687;</i>
+            <i className={props.focused ? 'iconfont loupe  focused' : 'iconfont loupe'}>&#xe687;</i>
             {this.searchArea()}
           </SearchWrapper>
         </Nav>
@@ -82,11 +96,17 @@ const mapDispatchToProps = (dispatch) => {
           dispatch(actions.getSearchInfoDataAction())
         }
       }
-      console.log(searchInfoData)
       dispatch(actions.switchFocusedAction())
     },
     handleSearchInfoMouseAc(flag) {
       dispatch(actions.changeMouseEnterSearchInfoStatusAction(flag))
+    },
+    handleChangePage(currentPage, totalPage, spinIcon) {
+      let originAngle = spinIcon.style.transform.replace(/[^0-9]/g, '')
+      originAngle = originAngle ? parseInt(originAngle, 10) : 0;
+      spinIcon.style.transform = 'rotate(' + (originAngle + 360) + 'deg)';
+      const nextPage = currentPage < totalPage ? currentPage + 1 : 1;
+      dispatch(actions.changeCurrentPageAction(nextPage))
     }
   }
 }
@@ -95,7 +115,9 @@ const mapStateToProps = (state) => {
   return {
     focused: state.getIn(['header', 'focused']),
     mouseEnter: state.getIn(['header', 'mouseEnterSearchInfoStatus']),
-    searchInfoData: state.getIn(['header', 'searchInfoData']).toJS()
+    searchInfoData: state.getIn(['header', 'searchInfoData']).toJS(),
+    currentPage: state.getIn(['header', 'currentPage']),
+    totalPage: state.getIn(['header', 'totalPage'])
   }
 }
 

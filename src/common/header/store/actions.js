@@ -2,6 +2,8 @@ import axios from 'axios';
 import {fromJS} from 'immutable';
 import * as actionTypes from './actionTypes';
 
+const SHOW_NUM = 10;
+
 export const switchFocusedAction = () => ({
   type: actionTypes.SWITCH_FOCUSE
 })
@@ -11,9 +13,6 @@ export const changeMouseEnterSearchInfoStatusAction = (flag) => ({
   value: flag
 })
 
-/**
- * 获取推荐搜索列表
- */
 export const getSearchInfoDataAction = () => {
   return (dispatch) => {
     axios.get('./api/headerList.json').then((res) => {
@@ -21,11 +20,16 @@ export const getSearchInfoDataAction = () => {
       if (res.success) {
         const action = {
           type: actionTypes.GET_SEARCH_INFO_DATA,
-          value: fromJS(res.data)
-          // value: res.data
+          value: fromJS(res.data),
+          totalPage: Math.ceil(res.data.length / SHOW_NUM)
         };
         dispatch(action);
       }
     })
   }
 }
+
+export const changeCurrentPageAction = (page) => ({
+  type: actionTypes.CHANGE_CURRENT_PAGE,
+  value: page
+})
