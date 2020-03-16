@@ -6,6 +6,7 @@ import Topic from './components/Topic';
 import Writer from './components/Writer';
 import { connect } from 'react-redux';
 import { getHomeDataAction } from './store/actions';
+import { actionTypes } from './store';
 
 import {
   HomeWrapper,
@@ -14,7 +15,7 @@ import {
   BackTop
 } from './style';
 
-class Home extends React.Component {
+class Home extends React.PureComponent {
   render() {
     return (
       <HomeWrapper>
@@ -42,7 +43,11 @@ class Home extends React.Component {
   }
 
   bindEvents(){
-    window.addEventListener('scroll',this.props.changeScrollTopShow)
+    window.addEventListener('scroll', this.props.changeScrollTopShow)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.props.changeScrollTopShow)
   }
 }
 
@@ -56,7 +61,7 @@ const mapDispatch = (dispatch) => ({
   },
   changeScrollTopShow() {
     const action = {
-      type: 'TOGGLE_SCROLL_TOP_SHOW',
+      type: actionTypes.TOGGLE_SCROLL_TOP_SHOW,
       value: true
     };
     if (document.documentElement.scrollTop > 300) {

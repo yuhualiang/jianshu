@@ -22,7 +22,7 @@ export default (state = defaultState, action) => {
         articleList: state.get('articleList').concat(action.value.articleList),
         articlePage: action.value.nextPage
       });
-    case 'TOGGLE_SCROLL_TOP_SHOW':
+    case actionTypes.TOGGLE_SCROLL_TOP_SHOW:
       return state.set('scrollTopShow', action.value);
     default:
       return state;
