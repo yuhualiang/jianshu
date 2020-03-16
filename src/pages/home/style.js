@@ -7,9 +7,9 @@ export const HomeWrapper = styled.div`
 `;
 
 export const HomeLeft = styled.div`
-  width: 66.6%;
+  width: 625px;
   float : left;
-  padding : 30px 0 0 15px;
+  padding : 30px 0 0 0;
   box-sizing : border-box;
   .banner-img {
     width: 625px;
@@ -18,7 +18,7 @@ export const HomeLeft = styled.div`
 `;
 
 export const HomeRight = styled.div`
-  width: 29%;
+  width: 280px;
   float : right;
   margin-left : 3%;
   box-sizing : border-box;
@@ -29,6 +29,7 @@ export const TopicWrapper = styled.div`
   padding: 20px 0 10px 0;
   overflow: hidden;
   margin-left: -18px;
+  border-bottom: 1px solid #dcdcdc;
 `;
 
 export const TopicItem = styled.div`
@@ -50,4 +51,56 @@ export const TopicItem = styled.div`
     display: block;
     float: left;
   }
+`;
+
+export const ListItem = styled.div`
+	overflow: hidden;
+	padding: 20px 0;
+  border-bottom: 1px solid #dcdcdc;
+	.pic {
+		display: block;
+		width: 20%;
+		height: 100px;
+		float: right;
+		border-radius: 10px;
+	}
+`;
+
+export const ListInfo =	styled.div`
+	width: 80%;
+  float: left;
+	.title {
+		line-height: 27px;
+		font-size: 18px;
+		font-weight: bold;
+		color: #333;
+	}
+	.desc {
+		line-height: 24px;
+		font-size: 13px;
+		color: #999;
+	}
+`;
+
+export const RecommendWrapper = styled.div`
+  margin-bottom: 30px;
+  margin-top: -4px;
+	width: 280px;
+`;
+
+export const RecommendItem = styled.div`
+	width: 280px;
+	height: 50px;
+	background: url(${(props) => props.imgUrl});
+  background-size: contain;
+`;
+
+export const WriterWrapper = styled.div`
+	width: 100%;
+  border: 1px solid #dcdcdc;
+  box-sizing: border-box;
+	border-radius: 3px;
+	height: 300px;
+	line-height: 300px;
+	text-align: center;
 `;
