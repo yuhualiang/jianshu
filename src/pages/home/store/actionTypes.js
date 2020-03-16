@@ -1,1 +1,3 @@
 export const GET_HOME_DATA = 'GET_HOME_DATA';
+
+export const LOAD_MORE_ARTICAL = 'LOAD_MORE_ARTICAL';
