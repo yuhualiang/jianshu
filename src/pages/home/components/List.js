@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ListItem, ListInfo, LoadMore } from '../style'
 import { loadMoreArticaleAction } from '../store/actions';
 
-class List extends React.PureComponent {
+class List extends React.Component {
   render() {
     return (
       <div>
