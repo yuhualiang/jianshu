@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ListItem, ListInfo, LoadMore } from '../style'
 import { loadMoreArticaleAction } from '../store/actions';
+import { Link } from 'react-router-dom';
 
 class List extends React.PureComponent {
   render() {
@@ -10,13 +11,15 @@ class List extends React.PureComponent {
         {
           this.props.list.map((item, index) => {
             return (
-              <ListItem key={index}>
-                <img className='pic' src={item.get('imgUrl')} alt="" />
-                <ListInfo>
-                  <h3 className='title'>{item.get('title')}</h3>
-                  <p className='desc'>{item.get('desc')}</p>
-                </ListInfo>
-              </ListItem>
+              <Link to="/detail" key={index}>
+                <ListItem>
+                  <img className='pic' src={item.get('imgUrl')} alt="" />
+                  <ListInfo>
+                    <h3 className='title'>{item.get('title')}</h3>
+                    <p className='desc'>{item.get('desc')}</p>
+                  </ListInfo>
+                </ListItem>
+              </Link>
             )
           })
         }
