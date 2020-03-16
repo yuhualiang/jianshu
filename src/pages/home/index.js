@@ -5,16 +5,16 @@ import Recommend from './components/Recommend';
 import Topic from './components/Topic';
 import Writer from './components/Writer';
 import { connect } from 'react-redux';
-import { getHomeDataAction } from './store/actions'
+import { getHomeDataAction } from './store/actions';
 
 import {
   HomeWrapper,
   HomeLeft,
   HomeRight,
+  BackTop
 } from './style';
 
 class Home extends React.Component {
-
   render() {
     return (
       <HomeWrapper>
@@ -27,22 +27,44 @@ class Home extends React.Component {
           <Recommend />
           <Writer />
         </HomeRight>
+        {this.props.scrollTopShow && <BackTop onClick={this.scrollToTop}>顶部</BackTop>}
       </HomeWrapper>
     )
   }
 
   componentDidMount() {
     this.props.getHomeData();
+    this.bindEvents();
+  }
+
+  scrollToTop() {
+    window.scrollTo(0, 0);
+  }
+
+  bindEvents(){
+    window.addEventListener('scroll',this.props.changeScrollTopShow)
   }
 }
 
 const mapState = (state) => ({
-  
+  scrollTopShow: state.getIn(['home', 'scrollTopShow'])
 });
 
 const mapDispatch = (dispatch) => ({
   getHomeData() {
     dispatch(getHomeDataAction())
+  },
+  changeScrollTopShow() {
+    const action = {
+      type: 'TOGGLE_SCROLL_TOP_SHOW',
+      value: true
+    };
+    if (document.documentElement.scrollTop > 300) {
+      dispatch(action);
+    } else {
+      action.value = false;
+      dispatch(action)
+    }
   }
 })
 
